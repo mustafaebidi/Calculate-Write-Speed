@@ -1,0 +1,74 @@
+.pad{
+    background-color: white;
+    padding: 10px 10px 10px 30px;
+    width: 100%;
+    max-height: 310px;
+    overflow: hidden;
+}
+
+.pad .word > div{
+    font-size: 23px;
+    color: #6d6d6d;
+    letter-spacing: 1px;
+    position: relative;
+    margin-right: 1px;
+}
+.pad .word > div.wrong{
+    color: rgb(203, 52, 57);
+    background: rgb(255, 192, 203);
+    border-radius: 4px;
+    animation:shake 0.25s linear ;
+}
+
+.pad .word > div.correct{
+    color: rgb(52, 203, 115);
+    background: rgb(192, 255, 212);
+    border-radius: 4px;
+}
+
+.pad .word > div.active::after{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    height: 3px;
+    width: 100%;
+    background-color: #4db5e3;;
+    opacity: 0;
+    left: 0;
+    animation : blink 1s ease-in-out infinite;
+
+}
+.letter{
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+.pad .words-container{
+    text-align: justify;
+    word-break: break-all;
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+
+.pad .words-container .word{
+    display: flex;
+}
+#main{
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    z-index: -5;
+}
+
+@keyframes blink{
+
+    50%{
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes shake{0%,50%{transform:translateX(5px)}25%,75%{transform:translateX(-5px)}to{transform:translateX(0)}}

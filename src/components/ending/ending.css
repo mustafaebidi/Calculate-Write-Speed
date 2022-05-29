@@ -1,0 +1,96 @@
+
+.ending{
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ending .info{
+
+    display: flex;
+    gap: 20px;
+
+}
+
+.result-container{
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.ending .result-info{
+    display: flex;
+    gap: 20px;
+    font-weight: bold;
+}
+.result-motivational-title{
+    color: #f08a24;;
+    margin-bottom: 5px;
+    
+}
+
+.result-motivation-msg{
+    color: #6d6d6d;
+}
+.ending .again{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.ending .again:hover{
+    background-color: rgba(127, 255, 212, 0.507);
+
+}
+
+.ending .speed{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: #6d6d6d;
+}
+.ending .speed:first-child{
+    font-size: 16px;
+    font-weight: bold;
+}
+.net-speed-label{
+    font-size: 15px;
+    font-weight: bold;
+
+}
+.net-speed{
+    font-size: 35px;
+    font-weight: bold;
+}
+.speed-unit{
+    font-size: 10px;
+    color: #aaa;
+
+}
+.precision{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.precision-rate{
+    color: #aaa;
+}
+.clock{
+    color: #aaa;
+
+}
+.time{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}

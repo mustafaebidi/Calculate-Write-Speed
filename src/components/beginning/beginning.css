@@ -1,0 +1,189 @@
+
+
+.beginning {
+    background: #69c1e4;
+    width: 100vw;
+    box-shadow: 1px 0px 12px 0px #1062a3bf;
+}
+
+.container{
+    
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+
+    justify-content: space-evenly;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 5px;
+    overflow: hidden;
+
+
+}
+
+
+.beginning .info{
+    color: white;
+}
+
+.beginning .info .text h2{
+    margin-bottom: 20px;
+    font-size: 50px;
+
+}
+.beginning .info .text p{
+    line-height: 1.5;
+    font-size: 18px;
+    max-width: 600px;
+
+}
+
+.container-media{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.beginning .media{
+    position: relative;
+    width: 450px;
+    height: 400px;
+}
+.beginning .media img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+
+
+}
+
+.beginning .media img:first-of-type{
+
+    transform: translate(-40%,-50%);
+
+
+    animation: downToTop-2 8s linear  infinite;
+
+}
+
+.beginning .media img:nth-of-type(2){
+    transform: translate(-60%,-10%);
+
+    animation: downToTop 8s linear  infinite;
+
+
+
+}
+.beginning .media img:nth-of-type(3){
+
+    transform: translate(-80%,-80%);
+
+    animation: topToDown 8s linear  infinite;
+
+}
+
+
+@media(max-width:768px){
+    .container{
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .beginning .info{
+        text-align: center;
+    }
+
+    .beginning .media img:first-of-type{
+        width: 400px;
+
+
+    
+    }
+    
+    .beginning .media img:nth-of-type(2){
+        width: 200px;
+
+    
+    
+    }
+    .beginning .media img:nth-of-type(3){
+        width: 200px;
+    }
+
+
+    
+
+}
+
+@media(max-width:440px){
+
+
+
+}
+
+.beginning h1{
+    margin-bottom: 20px;
+}
+.choosen > div{
+    background-color: #4db5e3;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+    font-size: 20px;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 1px 2px 4px rgb(0 0 0 / 73%), inset 1px 20px 20px 20px rgb(32 152 209), inset 11px 14px 18px 9px rgb(255 255 255 / 67%);
+
+
+}
+.choosen > div:hover{
+    background: linear-gradient(225deg, #464545 0%, #ffffff 100%);
+
+}
+
+.choosen{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+@keyframes downToTop{
+    0%{
+        transform: translate(-60%,-10%);
+    }
+    50%{
+        transform: translate(-60%,10%);
+    }
+    100%{
+        transform: translate(-60%,-10%);
+
+    }
+}
+@keyframes downToTop-2{
+    0%{
+        transform: translate(-40%,-50%);
+    }
+    50%{
+        transform: translate(-40%,-30%);
+    }
+    100%{
+        transform: translate(-40%,-50%);
+
+    }
+}
+
+@keyframes topToDown{
+    0%{
+        transform: translate(-80%,-80%);
+    }
+    50%{
+        transform: translate(-80%,-60%);
+    }
+    100%{
+        transform: translate(-80%,-80%);
+
+
+    }
+}

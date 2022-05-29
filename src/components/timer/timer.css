@@ -1,0 +1,47 @@
+.timer{
+    background-color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 450px;
+}
+
+.timer h2{
+    margin-bottom: 20px;
+}
+
+.timer svg{
+    width: 150px;
+    height: 150px;
+    transform: rotate(-90deg);
+    stroke-linecap: round;
+
+}
+
+.timer svg circle{
+    fill: transparent;
+    stroke-width: 6px;
+    stroke: #4db5e3;
+    transform: translate(5px,5px);
+    stroke-dasharray: 441;
+    stroke-dashoffset: 0;
+    
+}
+
+.inner{
+    position: relative;
+}
+.inner .count-down{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-size: 30px;
+    letter-spacing: 1.5px;
+    font-weight: bold;
+    color: #ccc;
+
+}
+

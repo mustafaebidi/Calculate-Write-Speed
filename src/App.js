@@ -1,24 +1,79 @@
-import logo from './logo.svg';
+import { Fragment, useEffect, useState } from 'react';
 import './App.css';
+import KeyBoard from './components/keyboard/keyboard';
+import Pad from './components/pad/pad';
+import WidgetsControl from './components/widgetsControl/widgetsControl';
+import Timer from './components/timer/timer';
+import  sentences from "./sentences"
+
+import WritingPad from "./components/writingpad/writingPad"
+import Beginning from './components/beginning/beginning';
+import Ending from './components/ending/ending';
 
 function App() {
+
+  const [level,setLevel]=useState("")
+
+  const [startGame,setStartGame]=useState(false)
+  const [value,setValue]=useState("")
+  const [caseOfLetters,setCaseOfLetters]=useState([])
+  const [choosenSentence,setChoosenSentence]=useState("")
+
+  const [startCountDown,setStartCountDown]=useState(false)
+
+  const [result,setResult]=useState({
+    wrong:0,
+    correct:0
+
+  })
+
+
+
+    useEffect(()=>{
+      if(startGame){
+
+        setValue("")
+        setStartCountDown(false)
+        setChoosenSentence(sentences[Math.floor(Math.random()*sentences.length)])
+        setCaseOfLetters([])
+        
+      }
+
+    },[startGame])
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+  
+    <Fragment>
+      {!startGame && <WidgetsControl>
+          { !level && <Beginning setStartGame={setStartGame} setLevel={setLevel} />}
+          { level && <Ending level={level} value={value} choosenSentence={choosenSentence} caseOfLetters={caseOfLetters} setStartGame={setStartGame} setLevel={setLevel}/>}
+      
+      </WidgetsControl>}
+
+      {startGame && <WritingPad>
+        <Timer level={level} startCountDown={startCountDown} setStartGame={setStartGame}/>
+
+        <Pad 
+          
+          setStartGame={setStartGame} 
+          choosenSentence={choosenSentence} 
+          setChoosenSentence={setChoosenSentence}
+          setValue={setValue} value={value} 
+          caseOfLetters={caseOfLetters} setCaseOfLetters={setCaseOfLetters}
+          setStartCountDown={setStartCountDown}
+        />
+
+      </WritingPad>}
+
+      {startGame && <KeyBoard value={value}/>}
+
+  
+    </Fragment>
+
+
   );
 }
 
