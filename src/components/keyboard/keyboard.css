@@ -45,7 +45,7 @@ body{
     border-radius: 5px;
     background-color: #f7f5f1;
     box-shadow: 1px 2px 3px rgb(0 0 0 / 10%), inset 0 0 2px rgb(255 255 255 / 50%);
-    background-image: gradient(linear,left top,left bottom,from(#dfdfdf),to(#f7f5f1));
+    background-image: linear-gradient(180deg, #dfdfdf, #f7f5f1); 
 }
 
 .space{
@@ -60,7 +60,7 @@ body{
     color: #fff;
     border: 1px solid #122d5e;
     background-color: #395d9b;
-    background-image: linear-gradient(top,#4d7ebf,#253d79);
+    background-image: linear-gradient(180deg ,#4d7ebf,#253d79);
 }
 .row .space {
     width: 100%;
