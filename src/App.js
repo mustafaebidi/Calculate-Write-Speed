@@ -1,5 +1,7 @@
+
+
 import { Fragment, useEffect, useState } from 'react';
-import './App.css';
+
 import KeyBoard from './components/keyboard/keyboard';
 import Pad from './components/pad/pad';
 import WidgetsControl from './components/widgetsControl/widgetsControl';
@@ -21,11 +23,7 @@ function App() {
 
   const [startCountDown,setStartCountDown]=useState(false)
 
-  const [result,setResult]=useState({
-    wrong:0,
-    correct:0
 
-  })
 
 
 
