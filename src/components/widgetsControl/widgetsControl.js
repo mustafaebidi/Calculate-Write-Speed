@@ -1,4 +1,5 @@
 
+import { Fragment } from "react"
 import "./widgetsControl.css"
 
 
@@ -6,11 +7,10 @@ import "./widgetsControl.css"
 const WidgetsControl=({children})=>{
 
     return(
-
-        <div className="widgets-control">
-            {children}
-
-        </div>
+        <Fragment>
+                {children}
+        </Fragment>
+        
 
     )
 }

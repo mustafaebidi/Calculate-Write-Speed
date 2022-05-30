@@ -9,10 +9,10 @@ const Beginning=({setLevel,setStartGame})=>{
         <div className="beginning">
             <div className="container">
                 <div className="container-media">
-                    <div class="media">
-                        <img class="vitesse" src="/image/pastille-vitesse.svg" alt=""/>
-                        <img class="vitesse" src="/image/pastille-precision.svg" alt=""/>
-                        <img class="vitesse" src="/image/pastille-methode.svg" alt=""/>
+                    <div className="media">
+                        <img  src="/image/pastille-vitesse.svg" alt=""/>
+                        <img  src="/image/pastille-precision.svg" alt=""/>
+                        <img  src="/image/pastille-methode.svg" alt=""/>
                     </div>
                 </div>
 

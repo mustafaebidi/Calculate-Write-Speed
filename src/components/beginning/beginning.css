@@ -1,13 +1,18 @@
 
 
 .beginning {
+    
     background: #69c1e4;
     width: 100vw;
     box-shadow: 1px 0px 12px 0px #1062a3bf;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+
 }
 
 .container{
-    
+    width: 100vw;
     margin-left: auto;
     margin-right: auto;
     display: flex;
@@ -46,6 +51,7 @@
 .beginning .media{
     position: relative;
     width: 450px;
+    height: 400px;
 }
 .beginning .media img{
     position: absolute;
@@ -86,7 +92,8 @@
     .container{
         flex-direction: column;
         gap: 40px;
-        height: 100vh;
+        min-height: 100vh;
+        padding-bottom: 20px;
     }
 
     .beginning .info{

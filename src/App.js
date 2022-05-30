@@ -22,6 +22,7 @@ function App() {
   const [choosenSentence,setChoosenSentence]=useState("")
 
   const [startCountDown,setStartCountDown]=useState(false)
+  const [storeAverageSpeedPerMinute,setStoreAverageSpeedPerMinute]=useState([])
 
 
 
@@ -34,6 +35,7 @@ function App() {
         setStartCountDown(false)
         setChoosenSentence(sentences[Math.floor(Math.random()*sentences.length)])
         setCaseOfLetters([])
+        setStoreAverageSpeedPerMinute([])
         
       }
 
@@ -47,12 +49,12 @@ function App() {
     <Fragment>
       {!startGame && <WidgetsControl>
           { !level && <Beginning setStartGame={setStartGame} setLevel={setLevel} />}
-          { level && <Ending level={level} value={value} choosenSentence={choosenSentence} caseOfLetters={caseOfLetters} setStartGame={setStartGame} setLevel={setLevel}/>}
-      
+          { level && <Ending storeAverageSpeedPerMinute={storeAverageSpeedPerMinute} level={level} value={value} choosenSentence={choosenSentence} caseOfLetters={caseOfLetters} setStartGame={setStartGame} setLevel={setLevel}/>}
+
       </WidgetsControl>}
 
       {startGame && <WritingPad>
-        <Timer level={level} startCountDown={startCountDown} setStartGame={setStartGame}/>
+        <Timer level={level} startCountDown={startCountDown} setStartGame={setStartGame} value={value} setStoreAverageSpeedPerMinute={setStoreAverageSpeedPerMinute}/>
 
         <Pad 
           

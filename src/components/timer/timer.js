@@ -2,7 +2,7 @@ import { useEffect, useState ,useRef} from "react"
 
 import "./timer.css"
 
-const Timer=({level,setStartGame,startCountDown})=>{
+const Timer=({level,setStartGame,startCountDown,setStoreAverageSpeedPerMinute,value})=>{
 
     const[timer,setTimer]=useState(60)
     const typeLevel=useRef({easy:5,medium:3,hard:1})
@@ -15,9 +15,18 @@ const Timer=({level,setStartGame,startCountDown})=>{
         if(timer === 0){
             clearInterval(globalTimer.current)
             setStartGame(false)
+            setStoreAverageSpeedPerMinute((state)=>([...state,value.length]))
+
         }
 
-    },[timer,setStartGame])
+        if( timer > 60 && ((timer-1) % 60) === 0  ){
+            console.log(value.length)
+            setStoreAverageSpeedPerMinute((state)=>[...state,value.length])
+            
+        }
+
+
+    },[timer,setStartGame,setStoreAverageSpeedPerMinute,value])
 
 
 
