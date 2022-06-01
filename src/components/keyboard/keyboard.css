@@ -6,10 +6,10 @@ body{
 }
 
 .keyboard{
-    background-image: linear-gradient(180deg, #ececec, #ffffff); 
-
+    border-radius: 10px;
+    /*background-image: linear-gradient(180deg, #ffffff, #ffffff); */
     box-shadow: 1px 2px 3px rgb(0 0 0 / 20%), inset 0 0 2px rgb(255 255 255 / 50%);
-    padding: 10px 20px 10px 20px;
+    padding: 8px 8px 100px 8px;
     display: flex;
     flex-direction: column;
     gap: 3px;
@@ -27,17 +27,18 @@ body{
 
 }
 
-.keyboard .key {
-    opacity: .3;
+
+
+.keyboard .key > div{
+    opacity: 0.3;
+    padding: 4px;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px;
     font-size: 20px;
     color: #000;
-    height: 50px;
-    width: 50px;
-    line-height: 50px;
+    height: 55px;
+    width: 55px;
     text-align: center;
     font-size: 20px;
     font-weight: bold;
@@ -47,8 +48,22 @@ body{
     background-color: #f7f5f1;
     box-shadow: 1px 2px 3px rgb(0 0 0 / 10%), inset 0 0 2px rgb(255 255 255 / 50%);
     background-image: linear-gradient(180deg, #dfdfdf, #f7f5f1); 
+
 }
 
+.symbolic{
+    align-self: flex-start;
+    margin-left: 2px;
+    margin-right: 2px;
+    font-size: 80%;
+}
+.main-letter{
+    margin-right: 2px;
+    margin-left: 2px;
+
+    align-self:center;
+
+}
 .space{
     width: 40%;
     display: flex;
@@ -59,10 +74,84 @@ body{
 .keyboard .key.active{
     opacity: 1;
     color: #fff;
-    border: 1px solid #122d5e;
     background-color: #395d9b;
     background-image: linear-gradient(180deg ,#4d7ebf,#253d79);
 }
 .row .space {
+    flex: 1;
+}
+
+.key.space > div {
     width: 100%;
+    
+}
+
+.tab {
+    flex: 1;
+}
+
+.key.tab > div {
+    flex: 1;
+    width: 100%;
+    align-items: flex-end;
+    justify-content: flex-start;
+}
+
+
+
+.caps{
+    flex: 1;
+}
+
+.key.caps > div {
+    width: 100%;
+    align-items: flex-end;
+    justify-content: flex-start;
+
+}
+
+.lshift{
+    flex: 1;
+    
+}
+
+.keyboard .key.lshift > div{
+    width: 100%;
+    align-items: flex-end;
+    justify-content: flex-start;
+
+}
+
+.keyboard .key.tab{
+    justify-content: flex-start;
+    align-items: flex-end;
+    flex: 1;
+}
+.backspace{
+    flex: 1;
+}
+
+.rshift{
+    flex: 1;
+}
+.key.rshift > div {
+    width: 100%;
+    align-items: flex-end;
+    justify-content: flex-start;
+}
+.entre{
+    flex: 1;
+}
+.key.entre > div {
+    width: 100%;
+    align-items: flex-end;
+    justify-content: flex-start;
+}
+.backspace{
+    width: 150px;
+}
+.key.backspace > div {
+    width: 100%;
+    align-items: flex-end;
+    justify-content: flex-start;
 }

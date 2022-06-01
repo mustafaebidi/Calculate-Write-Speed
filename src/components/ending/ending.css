@@ -25,6 +25,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 8px;
+    overflow: hidden;
 
 
     
@@ -48,7 +50,7 @@
 .ending .info{
 
     display: flex;
-    gap: 100px;
+    justify-content: space-evenly;
 
 }
 
@@ -62,6 +64,7 @@
     position: relative;
     z-index: 2;
     padding: 15px;
+    width: 100%;
     
 
 }
@@ -152,6 +155,7 @@
 
 }
 .net-speed{
+    color: white;
     font-size: 60px;
     font-weight: bold;
     text-shadow: 1px 2px 3px #000000f2;

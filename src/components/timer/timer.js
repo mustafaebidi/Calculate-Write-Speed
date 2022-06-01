@@ -9,6 +9,9 @@ const Timer=({level,setStartGame,startCountDown,setStoreAverageSpeedPerMinute,va
 
     const globalTimer=useRef("")
 
+    const clearTimer=useRef("")
+
+
 
 
     useEffect(()=>{
@@ -17,16 +20,20 @@ const Timer=({level,setStartGame,startCountDown,setStoreAverageSpeedPerMinute,va
             setStartGame(false)
             setStoreAverageSpeedPerMinute((state)=>([...state,value.length]))
 
+
         }
 
-        if( timer > 60 && ((timer-1) % 60) === 0  ){
-            console.log(value.length)
-            setStoreAverageSpeedPerMinute((state)=>[...state,value.length])
+        if( (timer-1) >= 60 && ((timer-1) % 60) === 0 && ((timer-1) / 60) !== typeLevel.current[level] ){
+            console.log((timer-1) / 60)
+            clearTimeout(clearTimer.current)
+            clearTimer.current=setTimeout(() => {
+                setStoreAverageSpeedPerMinute((state)=>[...state,value.length])
+            }, 1000);
             
         }
 
 
-    },[timer,setStartGame,setStoreAverageSpeedPerMinute,value])
+    },[timer, setStartGame, setStoreAverageSpeedPerMinute, value, level])
 
 
 

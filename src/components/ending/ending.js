@@ -1,12 +1,18 @@
 
 import "./ending.css"
 
-const Ending=({level,value,caseOfLetters,setStartGame,setLevel,choosenSentence,storeAverageSpeedPerMinute})=>{
+const Ending=({level,value,setStartGame,setLevel,choosenSentence,storeAverageSpeedPerMinute})=>{
+    console.log(storeAverageSpeedPerMinute)
 
     const typeLevel={easy:5,medium:3,hard:1}
 
 
     console.log(storeAverageSpeedPerMinute)
+
+    console.log(choosenSentence.slice(0,storeAverageSpeedPerMinute[0]).split(" ").length)
+    console.log(choosenSentence.slice(storeAverageSpeedPerMinute[0],storeAverageSpeedPerMinute[1]).split(" ").length)
+    console.log(choosenSentence.slice(storeAverageSpeedPerMinute[1],storeAverageSpeedPerMinute[2]).split(" ").length)
+
 
 
     const getMoreThanMinute=()=>{
@@ -20,7 +26,7 @@ const Ending=({level,value,caseOfLetters,setStartGame,setLevel,choosenSentence,s
                 averageRate=choosenSentence.slice(0,storeAverageSpeedPerMinute[i]).split(" ").length
             }
             else{
-                let wrtingWordInThisMinute=choosenSentence.slice(storeAverageSpeedPerMinute[i-1].length,storeAverageSpeedPerMinute[i].length).split(" ").length
+                let wrtingWordInThisMinute=choosenSentence.slice(storeAverageSpeedPerMinute[i-1],storeAverageSpeedPerMinute[i]).split(" ").length
                 averageRate+=(storeAverageSpeedPerMinute[i] <= storeAverageSpeedPerMinute[i-1] ? 0 :wrtingWordInThisMinute)
 
             }
@@ -48,8 +54,9 @@ const Ending=({level,value,caseOfLetters,setStartGame,setLevel,choosenSentence,s
 
         let sum=0
 
-        for(let i=0;i<caseOfLetters.length;i++){
-            if(caseOfLetters[i][i] === "wrong" ){
+        for(let i=0;i<value.length;i++){
+
+            if(choosenSentence[i] !== value[i] ){
                 sum=sum+1
             }
         }

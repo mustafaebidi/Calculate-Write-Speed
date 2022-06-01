@@ -17,7 +17,7 @@
     color: rgb(203, 52, 57);
     background: rgb(255, 192, 203);
     border-radius: 4px;
-    animation:shake 0.25s linear ;
+    animation:shake 0.2s linear ;
 }
 
 .pad .word > div.correct{

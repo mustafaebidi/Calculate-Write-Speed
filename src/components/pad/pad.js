@@ -3,7 +3,7 @@ import {memo, useCallback, useEffect, useRef, useState} from "react"
 import "./pad.css"
 
 
-const Pad=({value,setValue,setStartGame,caseOfLetters,setCaseOfLetters,choosenSentence,setStartCountDown})=>{
+const Pad=({value,setValue,setStartGame,choosenSentence,setStartCountDown,setStoreAverageSpeedPerMinute})=>{
 
     const [current,setCurrent]=useState(0)
 
@@ -21,8 +21,8 @@ const Pad=({value,setValue,setStartGame,caseOfLetters,setCaseOfLetters,choosenSe
 
 
     const goToTop=(target,pos)=>{
-        let scrollTo=pos;
 
+        let scrollTo=pos;
 
         globalTimer.current=setInterval(() => {
 
@@ -41,7 +41,6 @@ const Pad=({value,setValue,setStartGame,caseOfLetters,setCaseOfLetters,choosenSe
 
     const goToDown=(target,pos)=>{
         let scrollTo=pos;
-        console.log("ahmed")
 
 
         globalTimer.current=setInterval(() => {
@@ -80,7 +79,7 @@ const Pad=({value,setValue,setStartGame,caseOfLetters,setCaseOfLetters,choosenSe
     const handleChange=()=>{
 
 
-        ///This First Time To run time After user click on keyboard
+        ///run at The First only To Fire Timer
         if(firstTime.current){
             firstTime.current=false
             setStartCountDown(true)
@@ -93,25 +92,15 @@ const Pad=({value,setValue,setStartGame,caseOfLetters,setCaseOfLetters,choosenSe
 
         setValue(values.current.value)
 
-        setCurrent((state)=>values.current.value.length ? values.current.value.length :0)
+        setCurrent(()=>values.current.value.length ? values.current.value.length :0)
 
         prevCurrent.current=current
 
 
-        let newArr=values.current.value.split("").map((word,index)=>{
-
-            if(word===choosenSentence[index]){
-                return {[index]:"corrent"}
-            }
-            else{
-                return {[index]:"wrong"}
-            }
-            
-        })
-
-        setCaseOfLetters([...newArr])
+    
 
         if(values.current.value.length === choosenSentence.length){
+            setStoreAverageSpeedPerMinute((state)=>[...state,value.length])
             setStartGame(false)
         }
 
@@ -119,29 +108,55 @@ const Pad=({value,setValue,setStartGame,caseOfLetters,setCaseOfLetters,choosenSe
 
 
 
+    const checkScrollToDown=useCallback((allWord)=>{
+
+        if(current > prevCurrent.current && allWord[current].offsetTop >  allWord[current-1].offsetTop){
+            return true
+        }
+        return false
 
 
-    useEffect(()=>{
+    },[current])
+
+    const checkScrollToTop=useCallback((allWord)=>{
+
+        if(current < prevCurrent.current && allWord[prevCurrent.current].offsetTop > allWord[current].offsetTop){
+            return true
+        }
+        return false
+
+
+    },[current])
+
+    const checkHaveToScroll=useCallback(()=>{
+
+        let amountOfIncrease=45;
+
         const allWord=document.querySelectorAll(".letter")
 
+
+        if(checkScrollToDown(allWord)){
+            scrollWithAnimatin(amountOfIncrease)
+        }
+
+        else if(checkScrollToTop(allWord)){
+            scrollWithAnimatin(-amountOfIncrease)
+        }
+
+
+    },[checkScrollToDown, checkScrollToTop, scrollWithAnimatin])
+
+    useEffect(()=>{
+
         if(current){
-
-            ///amounOFScroll
-            let amountOfIncrease=45;
-
-            if(current > prevCurrent.current && allWord[current].offsetTop >  allWord[current-1].offsetTop){
-                scrollWithAnimatin(amountOfIncrease)
-            }
-            else if(current < prevCurrent.current && allWord[prevCurrent.current].offsetTop >  allWord[current].offsetTop){
-                scrollWithAnimatin(-amountOfIncrease)
-            }
+            checkHaveToScroll()
         }
         else{
             
             (padElement.current ? scrollWithAnimatin(-storeLastPos.current) : padElement.current=null)
         }
 
-    },[value,current,scrollWithAnimatin])
+    },[value,current,scrollWithAnimatin,checkHaveToScroll])
 
 
 

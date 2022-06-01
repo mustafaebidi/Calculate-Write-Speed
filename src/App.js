@@ -62,8 +62,8 @@ function App() {
           choosenSentence={choosenSentence} 
           setChoosenSentence={setChoosenSentence}
           setValue={setValue} value={value} 
-          caseOfLetters={caseOfLetters} setCaseOfLetters={setCaseOfLetters}
           setStartCountDown={setStartCountDown}
+          setStoreAverageSpeedPerMinute={setStoreAverageSpeedPerMinute}
         />
 
       </WritingPad>}

@@ -15,7 +15,9 @@ body{
   justify-content: center;
   align-items: center;
   font-family: 'Roboto Flex', sans-serif;
-  background: #eff0f3;
+  background: #ffffff;
+  background-size: cover;
+  background-position: 50%,50%;
 
 }
 
@@ -23,6 +25,7 @@ body{
   display: flex;
   flex-direction: column;
   perspective: 2000px;
+  gap: 5px;
 
 
 }

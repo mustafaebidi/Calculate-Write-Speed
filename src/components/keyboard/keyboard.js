@@ -6,40 +6,77 @@ import "./keyboard.css"
 const KeyBoard=({value})=>{
 
     const glocbals=useRef(false)
+    const allLetter=useRef(document.querySelectorAll(".row .key > div"))
 
-    function toggleLetter(e) {
+
+    const LowerAllLetter=()=>{
+        
+        for(let i=0;i<allLetter.current.length;i++){
+            if(allLetter.current[i].children[0]){
+
+            }
+            else{
+                allLetter.current[i].innerHTML=allLetter.current[i].innerHTML.toLowerCase()
+
+
+            }
+
+        }
+
+    }
+
+    const upperAllLetter=()=>{
+        
+        for(let i=0;i<allLetter.current.length;i++){
+            if(allLetter.current[i].children[0]){
+
+            }
+            else{
+                allLetter.current[i].innerHTML=allLetter.current[i].innerHTML.toUpperCase()
+            }
+        }
+
+    }
+
+    const toggleLetter=useCallback((e)=> {
+
+
         document.getElementById("main").focus()
 
         if(e.code === "Space" ){
             glocbals.current=true
-
             return;
         }
+
         if(e.code === "CapsLock"){
+
             if (e.getModifierState("CapsLock")) {
-                console.log(88880)
+
                 document.querySelector(".caps").classList.add("active")
-                for(let i=0;i<document.querySelectorAll(".row .key").length;i++){
-                    document.querySelectorAll(".row .key")[i].innerHTML=document.querySelectorAll(".row .key")[i].innerHTML.toUpperCase()
-                }
+                upperAllLetter()
+                
             }
             if(!e.getModifierState("CapsLock")){
+                
                 document.querySelector(".caps").classList.add("active")
-    
-                for(let i=0;i<document.querySelectorAll(".row .key").length;i++){
-                    document.querySelectorAll(".row .key")[i].innerHTML=document.querySelectorAll(".row .key")[i].innerHTML.toLowerCase()
-                }
-    
+                LowerAllLetter()
+
             }
         }
         
-    }
+    },[])
 
     const removeClassActive=useCallback(()=>{
 
-        for(let i=0;i<document.querySelectorAll(".row .key").length;i++){
+        for(let i=0;i<allLetter.current.length;i++){
 
-                document.querySelectorAll(".row .key")[i].classList.remove("active")
+                if(allLetter.current[i].children[0]){
+
+                }
+                else{
+                    allLetter.current[i].parentNode.classList.remove("active")
+
+                }
         }
         
     },[])
@@ -47,6 +84,8 @@ const KeyBoard=({value})=>{
     
 
     const addClassActive=useCallback(()=>{
+
+
 
         
         if(glocbals.current){
@@ -56,83 +95,234 @@ const KeyBoard=({value})=>{
 
         }
 
-        for(let i=0;i<document.querySelectorAll(".row .key").length;i++){
+        for(let i=0;i<allLetter.current.length;i++){
 
-            if(document.querySelectorAll(".row .key")[i].innerHTML === value[value.length-1]){
-                document.querySelectorAll(".row .key")[i].classList.add("active")
+
+
+            if(allLetter.current[i].children[0]){
+
+                
+
+
             }
+            else
+            {
+
+                if(allLetter.current[i].innerHTML === value[value.length-1]) {
+
+
+                    allLetter.current[i].parentNode.classList.add("active")
+                }
+
+            }
+
 
         }
         
     },[value])
 
     useEffect(()=>{
-            removeClassActive()
-            addClassActive()
 
-            
-
+        allLetter.current=document.querySelectorAll(".row .key > div")
+        removeClassActive()
+        addClassActive()
 
         document.addEventListener('keydown', toggleLetter);
         document.addEventListener('keyup', removeClassActive);
-        //document.getElementById("ss").addEventListener('input', ()=>console.log(55));
-
 
         return(()=>{
-            //document.removeEventListener('keydown', addClassActive);
             document.removeEventListener('keydown', toggleLetter);
             document.removeEventListener('keyup', removeClassActive);
+        
 
-
-            //document.getElementById("ss").removeEventListener('input', ()=>console.log(55));
         })
-    },[addClassActive, removeClassActive, value])
+    },[addClassActive, removeClassActive, toggleLetter, value])
 
     return(
     
         <div className="keyboard">
 
             <div className="row">
-                <div className="key" >q</div>
-                <div className="key"  >w</div>
-                <div className="key"  >e</div>
-                <div className="key"  >r</div>
-                <div className="key"  >t</div>
-                <div className="key"  >y</div>
-                <div className="key"  >u</div>
-                <div className="key"  >i</div>
-                <div className="key"  >o</div>
-                <div className="key"  >p</div>
+
+                <div className="key">
+                    <div><div className="main-letter">`</div><div className="symbolic">~</div></div>
+                </div>
+
+        
+                <div className="key">
+                    <div><div className="main-letter">1</div><div className="symbolic">!</div></div>
+                </div>
+                <div className="key">
+                    <div><div className="main-letter">2</div><div className="symbolic">@</div></div>
+                </div>
+
+                <div className="key">
+                    <div><div className="main-letter">3</div><div className="symbolic">#</div></div>
+                </div>
+                <div className="key">
+                    <div><div className="main-letter">4</div><div className="symbolic">$</div></div>
+                </div>
+                <div className="key">
+                    <div><div className="main-letter">5</div><div className="symbolic">%</div></div>
+                </div>
+                <div className="key">
+                    <div><div className="main-letter">6</div><div className="symbolic">^</div></div>
+                </div>
+                <div className="key">
+                    <div><div className="main-letter">7</div><div className="symbolic">&</div></div>
+                </div>
+                <div className="key">
+                    <div><div className="main-letter">8</div><div className="symbolic">*</div></div>
+                </div>
+                <div className="key">
+                    <div><div className="main-letter">9</div><div className="symbolic">(</div></div>
+                </div>
+                <div className="key">
+                    <div><div className="main-letter">0</div><div className="symbolic">)</div></div>
+                </div>
+                <div className="key">
+                    <div><div className="main-letter">-</div><div className="symbolic">_</div></div>
+                </div>
+                <div className="key">
+                    <div><div className="main-letter">-</div><div className="symbolic">_</div></div>
+                </div>
+
+                <div className="key">
+                    <div><div className="main-letter">=</div><div className="symbolic">+</div></div>
+                </div>
+
+                <div className="key backspace">
+                    <div>backspace</div>
+                </div>
+
             </div>
             <div className="row">
-                <div className="key"  >a</div>
-                <div  className="key"  >s</div>
-                <div className="key"  >d</div>
-                <div className="key"  >f</div>
-                <div className="key"  >g</div>
-                <div className="key"  >h</div>
-                <div className="key"  >j</div>
-                <div className="key"  >k</div>
-                <div className="key"  >l</div>
+
+                <div className="key tab">
+                    <div>tab</div>
+                </div>
+
+
+                <div className="key"><div>q</div></div>
+                <div className="key"><div>w</div></div>
+                <div className="key"><div>e</div></div>
+                <div className="key"><div>r</div></div>
+                <div className="key"><div>t</div></div>
+                <div className="key"><div>y</div></div>
+                <div className="key"><div>u</div></div>
+                <div className="key"><div>i</div></div>
+                <div className="key"><div>o</div></div>
+                <div className="key"><div>p</div></div>
+                <div className="key">
+                    <div><div className="main-letter">[</div><div className="symbolic">+</div></div>
+                </div>
+                <div className="key">
+                    <div><div className="main-letter">]</div><div className="symbolic">+</div></div>
+                </div>
+                <div className="key">
+                    <div><div className="main-letter">/</div><div className="symbolic">|</div></div>
+                </div>
+
+
             </div>
             <div className="row">
-                <div className="caps key">caps</div>
-                <div className="key">,</div>
-                <div className="key">z</div>
-                <div className="key">x</div>
-                <div className="key">c</div>
-                <div className="key">v</div>
-                <div className="key">b</div>
-                <div className="key">n</div>
-                <div className="key">m</div>
-                <div className="key">.</div>
-                <div className="backspace key">del</div>
-            </div>
-            <div className="row">
-                <div className="space key">
-                    Space
+                <div className="key caps">
+                    <div>capslock</div>
+                </div>
+                <div className="key" >
+                    <div>a</div>
+                </div>
+                <div  className="key">
+                    <div>s</div>
+                </div>
+                <div className="key">
+                    <div>d</div>
+                </div>
+                <div className="key">
+                    <div>f</div>
+                </div>
+                <div className="key">
+                    <div>g</div>
+                </div>
+                <div className="key" >
+                    <div>h</div>
+                </div>
+                <div className="key" >
+                    <div>j</div>
+                </div>
+                <div className="key" >
+                    <div>k</div>
+                </div>
+                <div className="key" >
+                    <div>l</div>
+                </div>
+                <div className="key">
+                    <div><div className="main-letter">;</div><div className="symbolic">:</div></div>
+                </div>
+                <div className="key">
+                    <div><div className="main-letter">'</div><div className="symbolic">"</div></div>
+                </div>
+                <div className="key entre">
+                    <div>entre</div>
                 </div>
             </div>
+            <div className="row">
+                <div className="key lshift">
+                    <div>lshift</div>
+                </div>
+                <div className="key">
+                    <div>z</div>
+                </div>
+                
+                <div className="key">
+                    <div>x</div>
+                </div>
+                <div className="key">
+                    <div>c</div>
+                </div>
+                <div className="key">
+                    <div>v</div>
+                </div>
+                <div className="key">
+                    <div>b</div>
+                </div>
+                <div className="key">
+                    <div>n</div>
+                </div>
+                <div className="key">
+                    <div>m</div>
+                </div>
+                <div className="key">
+                    <div><div className="main-letter">,</div><div className="symbolic">&lt;</div></div>
+                </div>
+                <div className="key">
+                    <div><div className="main-letter">.</div><div className="symbolic">&gt;</div></div>
+                </div>
+                <div className="key">
+                    <div><div className="main-letter">/</div><div className="symbolic">?</div></div>
+                </div>
+                <div className="key rshift">
+                    <div>rshift</div>
+                </div>
+            </div>
+            <div className="row">
+                <div className="key">
+                    <div>ctrl</div>
+                </div>
+                <div className="key">
+                    <div>lalt</div>
+                </div>
+
+                <div className="space key">
+
+                    <div>Space</div>
+    
+                </div>
+                <div className="key">
+                    <div>ralt</div>
+                </div>
+            </div>
+
         </div>
     )
 
