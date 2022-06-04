@@ -29,3 +29,25 @@ body{
 
 
 }
+
+.laptop{
+  display: flex;
+  flex-direction: column;
+  perspective: 2000px;
+  gap: 5px;
+
+}
+
+@media(max-width:992px){
+  .laptop{
+    transform: scale(0.7);
+  }
+
+}
+
+@media(max-width:768px){
+  .laptop{
+    transform: scale(0.4);
+  }
+
+}

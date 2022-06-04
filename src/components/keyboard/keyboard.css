@@ -71,7 +71,7 @@ body{
     align-items: center;
 }
 
-.keyboard .key.active{
+.keyboard .key > div.active{
     opacity: 1;
     color: #fff;
     background-color: #395d9b;

@@ -5,35 +5,26 @@ import "./keyboard.css"
 
 const KeyBoard=({value})=>{
 
-    const glocbals=useRef(false)
     const allLetter=useRef(document.querySelectorAll(".row .key > div"))
 
 
     const LowerAllLetter=()=>{
         
         for(let i=0;i<allLetter.current.length;i++){
-            if(allLetter.current[i].children[0]){
-
-            }
-            else{
+            if(!allLetter.current[i].children[0]){
                 allLetter.current[i].innerHTML=allLetter.current[i].innerHTML.toLowerCase()
-
-
             }
-
+            
         }
-
     }
 
     const upperAllLetter=()=>{
         
         for(let i=0;i<allLetter.current.length;i++){
-            if(allLetter.current[i].children[0]){
-
-            }
-            else{
+            if(!allLetter.current[i].children[0]){
                 allLetter.current[i].innerHTML=allLetter.current[i].innerHTML.toUpperCase()
             }
+            
         }
 
     }
@@ -43,22 +34,18 @@ const KeyBoard=({value})=>{
 
         document.getElementById("main").focus()
 
-        if(e.code === "Space" ){
-            glocbals.current=true
-            return;
-        }
 
         if(e.code === "CapsLock"){
 
             if (e.getModifierState("CapsLock")) {
 
-                document.querySelector(".caps").classList.add("active")
+                document.querySelector(".caps > div").classList.add("active")
                 upperAllLetter()
                 
             }
             if(!e.getModifierState("CapsLock")){
                 
-                document.querySelector(".caps").classList.add("active")
+                document.querySelector(".caps > div").classList.add("active")
                 LowerAllLetter()
 
             }
@@ -70,12 +57,8 @@ const KeyBoard=({value})=>{
 
         for(let i=0;i<allLetter.current.length;i++){
 
-                if(allLetter.current[i].children[0]){
-
-                }
-                else{
-                    allLetter.current[i].parentNode.classList.remove("active")
-
+                if(!allLetter.current[i].children[0]){
+                    allLetter.current[i].classList.remove("active")
                 }
         }
         
@@ -85,37 +68,22 @@ const KeyBoard=({value})=>{
 
     const addClassActive=useCallback(()=>{
 
-
-
-        
-        if(glocbals.current){
-            document.querySelector(".space").classList.add("active")
-            glocbals.current=false
-            return;
-
-        }
-
         for(let i=0;i<allLetter.current.length;i++){
 
+            if(!allLetter.current[i].children[0]){
 
+                if(value[value.length-1] === " "){
+                    document.querySelector(".space > div").classList.add("active")
+                    return;
 
-            if(allLetter.current[i].children[0]){
-
-                
-
-
-            }
-            else
-            {
+                }
 
                 if(allLetter.current[i].innerHTML === value[value.length-1]) {
-
-
-                    allLetter.current[i].parentNode.classList.add("active")
+                    allLetter.current[i].classList.add("active")
                 }
 
             }
-
+        
 
         }
         
@@ -124,6 +92,7 @@ const KeyBoard=({value})=>{
     useEffect(()=>{
 
         allLetter.current=document.querySelectorAll(".row .key > div")
+        
         removeClassActive()
         addClassActive()
 
@@ -134,7 +103,6 @@ const KeyBoard=({value})=>{
             document.removeEventListener('keydown', toggleLetter);
             document.removeEventListener('keyup', removeClassActive);
         
-
         })
     },[addClassActive, removeClassActive, toggleLetter, value])
 

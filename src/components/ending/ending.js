@@ -6,15 +6,6 @@ const Ending=({level,value,setStartGame,setLevel,choosenSentence,storeAverageSpe
 
     const typeLevel={easy:5,medium:3,hard:1}
 
-
-    console.log(storeAverageSpeedPerMinute)
-
-    console.log(choosenSentence.slice(0,storeAverageSpeedPerMinute[0]).split(" ").length)
-    console.log(choosenSentence.slice(storeAverageSpeedPerMinute[0],storeAverageSpeedPerMinute[1]).split(" ").length)
-    console.log(choosenSentence.slice(storeAverageSpeedPerMinute[1],storeAverageSpeedPerMinute[2]).split(" ").length)
-
-
-
     const getMoreThanMinute=()=>{
 
         let averageRate=0;
@@ -22,12 +13,13 @@ const Ending=({level,value,setStartGame,setLevel,choosenSentence,storeAverageSpe
         let numberOfMinute=storeAverageSpeedPerMinute.length
 
         for(let i=0;i<storeAverageSpeedPerMinute.length;i++){
+
             if(i===0){
                 averageRate=choosenSentence.slice(0,storeAverageSpeedPerMinute[i]).split(" ").length
             }
             else{
-                let wrtingWordInThisMinute=choosenSentence.slice(storeAverageSpeedPerMinute[i-1],storeAverageSpeedPerMinute[i]).split(" ").length
-                averageRate+=(storeAverageSpeedPerMinute[i] <= storeAverageSpeedPerMinute[i-1] ? 0 :wrtingWordInThisMinute)
+                let wordsWrittenAtThisMoment=choosenSentence.slice(storeAverageSpeedPerMinute[i-1],storeAverageSpeedPerMinute[i]).split(" ").length
+                averageRate+=(storeAverageSpeedPerMinute[i] <= storeAverageSpeedPerMinute[i-1] ? 0 :wordsWrittenAtThisMoment)
 
             }
         }
@@ -39,6 +31,7 @@ const Ending=({level,value,setStartGame,setLevel,choosenSentence,storeAverageSpe
         let wordPerMinute;
 
         if(level ==="easy" ){
+
             wordPerMinute=choosenSentence.slice(0,storeAverageSpeedPerMinute[0].length).split(" ").length
 
         }
@@ -50,7 +43,7 @@ const Ending=({level,value,setStartGame,setLevel,choosenSentence,storeAverageSpe
         return wordPerMinute
 
     }
-    const getNumberOfWrongWords=()=>{
+    const getNumberOfWrongLetters=()=>{
 
         let sum=0
 
@@ -66,9 +59,7 @@ const Ending=({level,value,setStartGame,setLevel,choosenSentence,storeAverageSpe
     }
 
     const getTime=()=>{
-
         return `${typeLevel[level]} :00`
-
     }
     
 
@@ -99,7 +90,7 @@ const Ending=({level,value,setStartGame,setLevel,choosenSentence,storeAverageSpe
                     <div className="result-info">
                         <div className="precision">
                             <div className="precision-label">Precision</div>
-                            <div className="precision-rate">{ parseInt(( (TheWrittenLetters - getNumberOfWrongWords() ) / TheWrittenLetters)*100) } %</div>
+                            <div className="precision-rate">{ parseInt(( (TheWrittenLetters - getNumberOfWrongLetters() ) / TheWrittenLetters)*100) } %</div>
                         </div>
                         <div className="time">
                             <div className="time-label">Time</div>

@@ -33,6 +33,7 @@ function App() {
 
         setValue("")
         setStartCountDown(false)
+        console.log(Math.random()*sentences.length)
         setChoosenSentence(sentences[Math.floor(Math.random()*sentences.length)])
         setCaseOfLetters([])
         setStoreAverageSpeedPerMinute([])
@@ -53,22 +54,30 @@ function App() {
 
       </WidgetsControl>}
 
-      {startGame && <WritingPad>
-        <Timer level={level} startCountDown={startCountDown} setStartGame={setStartGame} value={value} setStoreAverageSpeedPerMinute={setStoreAverageSpeedPerMinute}/>
+      {startGame && 
+        <div className='laptop'>
 
-        <Pad 
-          
-          setStartGame={setStartGame} 
-          choosenSentence={choosenSentence} 
-          setChoosenSentence={setChoosenSentence}
-          setValue={setValue} value={value} 
-          setStartCountDown={setStartCountDown}
-          setStoreAverageSpeedPerMinute={setStoreAverageSpeedPerMinute}
-        />
+          <WritingPad>
+      
+            <Timer level={level} startCountDown={startCountDown} setStartGame={setStartGame} value={value} setStoreAverageSpeedPerMinute={setStoreAverageSpeedPerMinute}/>
 
-      </WritingPad>}
+            <Pad 
+              setStartGame={setStartGame} 
+              choosenSentence={choosenSentence} 
+              setChoosenSentence={setChoosenSentence}
+              setValue={setValue} value={value} 
+              setStartCountDown={setStartCountDown}
+              setStoreAverageSpeedPerMinute={setStoreAverageSpeedPerMinute}
+            />
 
-      {startGame && <KeyBoard value={value}/>}
+          </WritingPad>
+
+          <KeyBoard value={value}/>
+
+        </div>
+
+      }
+
 
   
     </Fragment>

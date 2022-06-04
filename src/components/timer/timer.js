@@ -24,7 +24,7 @@ const Timer=({level,setStartGame,startCountDown,setStoreAverageSpeedPerMinute,va
         }
 
         if( (timer-1) >= 60 && ((timer-1) % 60) === 0 && ((timer-1) / 60) !== typeLevel.current[level] ){
-            console.log((timer-1) / 60)
+            
             clearTimeout(clearTimer.current)
             clearTimer.current=setTimeout(() => {
                 setStoreAverageSpeedPerMinute((state)=>[...state,value.length])

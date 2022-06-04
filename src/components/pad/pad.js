@@ -19,16 +19,19 @@ const Pad=({value,setValue,setStartGame,choosenSentence,setStartCountDown,setSto
 
     const prevCurrent=useRef(true)
 
+    const [visualView,setVisualView]=useState(0)
 
-    const goToTop=(target,pos)=>{
 
-        let scrollTo=pos;
+
+    const goToTop=(scrollRate,lastPos)=>{
+
+        let scrollTo=lastPos;
 
         globalTimer.current=setInterval(() => {
 
             padElement.current.scrollTop=scrollTo
 
-            if(scrollTo < (target+pos) ){
+            if(scrollTo < (scrollRate+lastPos) ){
                 clearInterval(globalTimer.current)
             }
 
@@ -39,15 +42,16 @@ const Pad=({value,setValue,setStartGame,choosenSentence,setStartCountDown,setSto
 
     }
 
-    const goToDown=(target,pos)=>{
-        let scrollTo=pos;
+    const goToDown=(scrollRate,lastPos)=>{
+
+        let scrollTo=lastPos;
 
 
         globalTimer.current=setInterval(() => {
 
             padElement.current.scrollTop=scrollTo
 
-            if(scrollTo > (target+pos)){
+            if(scrollTo > (scrollRate+lastPos)){
 
                 clearInterval(globalTimer.current)
             }
@@ -58,46 +62,42 @@ const Pad=({value,setValue,setStartGame,choosenSentence,setStartCountDown,setSto
         
     }
 
-    const scrollWithAnimatin=useCallback((target)=>{
+    const scrollWithAnimatin=useCallback((scrollRate)=>{
 
         clearInterval(globalTimer.current)
 
+        ///old pos
         let tempPos=storeLastPos.current
-        storeLastPos.current=storeLastPos.current+target
+        ////new pos
+        storeLastPos.current=storeLastPos.current+scrollRate
 
 
-        if(target>0){
-            goToDown(target,tempPos)
+
+        if(scrollRate>0){
+            goToDown(scrollRate,tempPos)
 
         }
         else{
-            goToTop(target,tempPos)
+            goToTop(scrollRate,tempPos)
 
         }
     },[])
 
     const handleChange=()=>{
 
+        values.current.focus()
 
-        ///run at The First only To Fire Timer
+        ///run at The First time only To Fire Timer
         if(firstTime.current){
             firstTime.current=false
             setStartCountDown(true)
-
         }
-
-
-        values.current.focus()
-
 
         setValue(values.current.value)
 
         setCurrent(()=>values.current.value.length ? values.current.value.length :0)
-
         prevCurrent.current=current
 
-
-    
 
         if(values.current.value.length === choosenSentence.length){
             setStoreAverageSpeedPerMinute((state)=>[...state,value.length])
@@ -110,7 +110,7 @@ const Pad=({value,setValue,setStartGame,choosenSentence,setStartCountDown,setSto
 
     const checkScrollToDown=useCallback((allWord)=>{
 
-        if(current > prevCurrent.current && allWord[current].offsetTop >  allWord[current-1].offsetTop){
+        if(current > prevCurrent.current && allWord[current].offsetTop > allWord[current-1].offsetTop){
             return true
         }
         return false
@@ -130,33 +130,103 @@ const Pad=({value,setValue,setStartGame,choosenSentence,setStartCountDown,setSto
 
     const checkHaveToScroll=useCallback(()=>{
 
-        let amountOfIncrease=45;
+
+        const allWord=document.querySelectorAll(".letter")
+
+        let letter=document.querySelector(".letter")
+
+        let maginInLetter= window.getComputedStyle(letter).marginTop
+
+        maginInLetter=+maginInLetter.replace("px","")
+
+        let letterHeight=letter.offsetHeight
+
+        let ItemSize=letterHeight+(maginInLetter*2)
+
+        
+
+        if((allWord[choosenSentence.length-1].offsetTop - allWord[current].offsetTop)+ ItemSize < visualView ){
+            return false;
+
+        }
+
+        return true;
+
+
+
+    },[choosenSentence, current, visualView])
+
+    const getHeightOVisualView=()=>{
 
         const allWord=document.querySelectorAll(".letter")
 
 
-        if(checkScrollToDown(allWord)){
-            scrollWithAnimatin(amountOfIncrease)
+        let veiwPort=300
+
+        let lastLetter=((allWord[allWord.length-1].offsetTop+allWord[allWord.length-1].offsetHeight)+8)
+
+        for(let i=0;i<allWord.length-1;i++){
+
+            if(((allWord[i].offsetTop+allWord[i].offsetHeight)+8) > veiwPort ){
+                return ((allWord[i-1].offsetTop+allWord[i-1].offsetHeight)+8)
+
+            }
+            
+
+        }
+        return lastLetter
+
+    }
+
+    useEffect(()=>{
+
+        
+        if(choosenSentence){
+
+            setVisualView(getHeightOVisualView())
         }
 
-        else if(checkScrollToTop(allWord)){
-            scrollWithAnimatin(-amountOfIncrease)
-        }
+    },[choosenSentence])
 
 
-    },[checkScrollToDown, checkScrollToTop, scrollWithAnimatin])
+
 
     useEffect(()=>{
 
         if(current){
-            checkHaveToScroll()
+
+            let letter=document.querySelector(".letter")
+
+            let maginInLetter= window.getComputedStyle(letter).marginTop
+    
+            maginInLetter=+maginInLetter.replace("px","")
+    
+            let letterHeight=letter.offsetHeight
+    
+            let amountOfScroll=letterHeight+(maginInLetter*2)
+    
+    
+            const allWord=document.querySelectorAll(".letter")
+
+            if(checkHaveToScroll()){
+
+                if(checkScrollToDown(allWord)){
+                    scrollWithAnimatin(amountOfScroll)
+                }
+        
+                else if(checkScrollToTop(allWord)){
+                    scrollWithAnimatin(-amountOfScroll)
+                }
+
+            }
         }
-        else{
+        else
+        {
             
             (padElement.current ? scrollWithAnimatin(-storeLastPos.current) : padElement.current=null)
         }
 
-    },[value,current,scrollWithAnimatin,checkHaveToScroll])
+    },[value, current, scrollWithAnimatin, checkHaveToScroll, checkScrollToDown, checkScrollToTop, choosenSentence])
 
 
 
@@ -165,7 +235,7 @@ const Pad=({value,setValue,setStartGame,choosenSentence,setStartCountDown,setSto
 
         let numberOfLetters=0;
         return(
-            <div ref={padElement} className="pad">
+            <div ref={padElement} style={{maxHeight: `${visualView ? `${visualView}px` :'310px'}`}} className="pad">
                 <input id="main" ref={values} autoComplete="off" onChange={()=>handleChange()} value={value} onPaste={(e)=> {
                     e.preventDefault()
                     return false;
